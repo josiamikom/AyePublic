@@ -49,7 +49,42 @@ require_once 'header.php'; ?>
        				Warning
        			</div>
        			<div class="panel-body">
-       				Terdapat perbedaan jumlah kriteria pada kriteria smartphone.
+       				<div class="col-lg-12">
+                Terdapat kriteria yang tidak sesuai pada kriteria smartphone. 
+              </div>
+              <br/>
+              <div class="col-lg-6">
+                <table class="table table-responsive">
+                  <tr>
+                    <th>Kriteria</th>
+                  </tr>
+                  <?php 
+                    foreach ($kriteria as $key => $value) {
+                      ?>
+                        <tr>
+                          <td><?php echo "$value"; ?></td>
+                        </tr>
+                      <?php
+                    }
+                   ?>
+                </table>
+              </div>
+              <div class="col-lg-6">
+                <table class="table table-responsive">
+                  <tr>
+                    <th>Kriteria Smartphone</th>
+                  </tr>
+                  <?php 
+                    foreach ($rule as $key => $value) {
+                      ?>
+                        <tr>
+                          <td><?php echo "$value"; ?></td>
+                        </tr>
+                      <?php
+                    }
+                   ?>
+                </table>
+              </div>
        			</div>
        		</div>
        </div>
@@ -74,7 +109,7 @@ require_once 'header.php'; ?>
         		<th>Brand</th>
         		<th>Device Name</th>
         		<?php 
-        			foreach ($kriteria as $key => $value) {
+        			foreach ($rule as $key => $value) {
         				echo "<th>$value</th>";
         			}
         		 ?>

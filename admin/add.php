@@ -3,7 +3,7 @@
 	include_once '../lib/fonoApi/fonoApi.php';
 	include_once '../lib/phoneClass.php';
 	require_once '../lib/AHP.php';
-$hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
+  $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
 	$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
 	
 	$fonoApi=fonoApi::debug($token);

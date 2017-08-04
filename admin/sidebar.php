@@ -1,7 +1,11 @@
 <?php 
+
+
 require_once '../lib/AHP.php';
 $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
-
+$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
+    $rule=array_keys( reset($phoneList)['rule']);
+    $kriteria=$hierarki1->name;
 
 if (isset($_GET['name'])) {
     $names=$_GET['name'];
@@ -11,6 +15,8 @@ if (isset($_GET['name'])) {
 ?>
 <nav class="navbar-default navbar-side" role="navigation">
     <div class="sidebar-collapse">
+    
+    
         <ul class="nav" id="main-menu">
 
 
@@ -47,5 +53,25 @@ if (isset($_GET['name'])) {
 
         </ul>
     </div>
-
+<div>
+        <?php 
+            if ($kriteria!==$rule) {
+                ?>
+                <div class="col-lg-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    Warning
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                Terdapat kriteria yang tidak sesuai pada kriteria smartphone. 
+              </div>
+              
+                </div>
+            </div>
+       </div>
+                <?php
+            }
+        ?>
+    </div>
 </nav>
