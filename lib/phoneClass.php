@@ -1,7 +1,7 @@
 <?php 
 	/**
 	* 
-	*/include_once 'lib/fonoApi/fonoApi.php';
+	*/include_once '../lib/fonoApi/fonoApi.php';
 	class phoneClass 
 	{
 		

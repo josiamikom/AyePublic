@@ -13,7 +13,6 @@ require_once '../lib/AHP.php';
 	}
 	$write['values']=$val;
 	$write=new Kriteria($write);
-	require_once 'AHP.php';
 	
 
   $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
