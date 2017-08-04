@@ -2,10 +2,10 @@
   /**
   * 
   */
-  require_once 'AHP.php';
+  require_once '../lib/AHP.php';
 
   if (isset($_GET['name'])) {
-    $hierarki1=new Kriteria(json_decode(file_get_contents('lib/kriteria/kriteria.json'),true));
+    $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
 
     if (in_array($_GET['name'], $hierarki1->name)) {
       if (isset($hierarki1->child[$_GET['name']])) {
@@ -16,10 +16,10 @@
       }
       
     }else {
-      header('location:admin.php');
+      header('location:index.php');
     }
   }else {
-    header('location:admin.php');
+    header('location:index.php');
   }
   require_once 'header.php';
   
@@ -86,13 +86,13 @@
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 <!-- JQUERY SCRIPTS -->
-<script src="assets/js/jquery-1.10.2.js"></script>
+<script src="../assets/js/jquery-1.10.2.js"></script>
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 <!-- CUSTOM SCRIPTS -->
-<script src="assets/js/custom.js"></script>
+<script src="../assets/js/custom.js"></script>
 <!-- js SCRIPTS -->
-<script src="assets/js/js.js"></script>
+<script src="../assets/js/js.js"></script>
 
 
 </body>

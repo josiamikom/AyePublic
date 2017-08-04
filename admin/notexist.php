@@ -13,7 +13,7 @@
 
 
     <?php echo "<input type='hidden' name='parent' value='".$_GET['name']."'>"; ?>
-    <table id="bobot" class="table table-striped table-bordered table-hover">
+    <table id="bobot" class="table table-striped table-bordered table-hover table-responsive">
         <tbody>
             <tr>
                 <td></td>

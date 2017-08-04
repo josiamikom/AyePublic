@@ -1,8 +1,8 @@
 <?php 
-echo "<pre>";
-require_once 'AHP.php';
+
+require_once '../lib/AHP.php';
 	
-	print_r($_POST);
+	
 	$write=array();
 	$name=($_POST['name']);
 	$write['name']=$name;
@@ -16,7 +16,7 @@ require_once 'AHP.php';
 	require_once 'AHP.php';
 	
 
-  $hierarki1=new Kriteria(json_decode(file_get_contents('lib/kriteria/kriteria.json'),true));
+  $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
   
   foreach ($hierarki1->name as $key => $value) {
   	if (!in_array($value, $write->name )) {
@@ -31,6 +31,6 @@ require_once 'AHP.php';
   $hierarki1->values=$val;
   
 	
-	file_put_contents('lib/kriteria/kriteria.json', json_encode($hierarki1));
+	file_put_contents('../lib/kriteria/kriteria.json', json_encode($hierarki1));
 	header('location:kriteria.php');
  ?>
