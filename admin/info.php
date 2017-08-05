@@ -109,7 +109,7 @@ require_once 'header.php'; ?>
         		<th>Brand</th>
         		<th>Device Name</th>
         		<?php 
-        			foreach ($rule as $key => $value) {
+        			foreach ($kriteria as $key => $value) {
         				echo "<th>$value</th>";
         			}
         		 ?>
@@ -134,10 +134,7 @@ require_once 'header.php'; ?>
         		}
         	 ?>
         </table>
-        </div>
         
-        	<?php echo "<pre>";print_r($kriteria);print_r($rule);print_r($phoneList);echo "</pre>"; ?>
-        </div>
     </div>
     <!-- /. PAGE INNER  -->
   </div>

@@ -1,12 +1,18 @@
 <?php 
 
-
+$notsame=false;
 require_once '../lib/AHP.php';
 $hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
 $phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
-    $rule=array_keys( reset($phoneList)['rule']);
-    $kriteria=$hierarki1->name;
+    
 
+    $kriteria=$hierarki1->name;
+    foreach ($phoneList as $value) {
+        $rule=array_keys($value['rule']);
+        if ($rule!==$kriteria) {
+            $notsame=true;
+        }
+    }
 if (isset($_GET['name'])) {
     $names=$_GET['name'];
 }else{
@@ -55,7 +61,7 @@ if (isset($_GET['name'])) {
     </div>
 <div>
         <?php 
-            if ($kriteria!==$rule) {
+            if ($notsame) {
                 ?>
                 <div class="col-lg-12">
             <div class="panel panel-danger">
