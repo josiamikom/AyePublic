@@ -1,4 +1,7 @@
 <?php
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
   /**
   * 
   */
@@ -28,7 +31,7 @@
         </div>
 
         <span class="logout-spn" >
-          <a href="#" style="color:#fff;">LOGOUT</a>  
+          <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
         </span>
       </div>

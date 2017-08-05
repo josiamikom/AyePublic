@@ -1,5 +1,7 @@
 <?php 
-
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 	include_once '../lib/fonoApi/fonoApi.php';
 	include_once '../lib/phoneClass.php';
 	require_once '../lib/AHP.php';
@@ -44,7 +46,7 @@ require_once 'header.php';
         </div>
 
         <span class="logout-spn" >
-          <a href="#" style="color:#fff;">LOGOUT</a>  
+          <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
         </span>
       </div>

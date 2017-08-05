@@ -1,5 +1,7 @@
 <?php 
-
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 	require_once '../lib/AHP.php';
 	
 

@@ -1,4 +1,7 @@
 <?php 
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 	if (!empty($_GET['brand'])&&!empty($_GET['name'])) {
 		include_once '../lib/fonoApi/fonoApi.php';
 		include_once '../lib/phoneClass.php';
@@ -41,7 +44,7 @@
         </div>
 
         <span class="logout-spn" >
-          <a href="#" style="color:#fff;">LOGOUT</a>  
+          <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
         </span>
       </div>

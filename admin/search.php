@@ -1,5 +1,7 @@
 <?php 
-
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 	include_once '../lib/fonoApi/fonoApi.php';
 	$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
 	$fonoApi=fonoApi::debug($token);
@@ -32,7 +34,7 @@ require_once 'header.php';
         </div>
 
         <span class="logout-spn" >
-          <a href="#" style="color:#fff;">LOGOUT</a>  
+          <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
         </span>
       </div>

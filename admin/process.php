@@ -1,4 +1,7 @@
 <?php 
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 	if (($handle = fopen("Alternatives.csv", "r")) !== FALSE) {
       while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
         $alt[]=$data;

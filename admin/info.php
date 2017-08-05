@@ -1,4 +1,7 @@
 <?php 
+if (!isset($_COOKIE['session'])) {
+    header("location:../");
+  }
 require_once '../lib/AHP.php';
 	$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
 	$rule=array_keys( reset($phoneList)['rule']);
@@ -23,7 +26,7 @@ require_once 'header.php'; ?>
         </div>
 
         <span class="logout-spn" >
-          <a href="#" style="color:#fff;">LOGOUT</a>  
+          <a href="logout.php" style="color:#fff;">LOGOUT</a>  
 
         </span>
       </div>
