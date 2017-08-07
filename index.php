@@ -2,6 +2,7 @@
 	/**
 	* 
 	*/
+  header("location:home");
 	require_once 'AHP.php';
 
 	$Kriterias=new Kriteria(array('Brand Popularity'	,'Value for Money',	'Design and Display',	'Features and Spesification'),array(array(1,0.2,0.25,0.33),array(5,1,5,4),array(4,0.2,1,2),array(3,0.25,0.5,1)));

@@ -1,9 +1,14 @@
+<?php
+	$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
+	$rules=array_keys( reset($phoneList)['rule']);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>AyeAye - AHP</title>
+<title>AyeAye - Smartphone List</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -52,10 +57,10 @@ experience.
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="#top-section">Home</a></li>
-			<li><a href="#Section-1">Perbandingan</a></li>
-			<li><a href="smartphones.php">Daftar Smartphone</a></li>
-			<li><a href="#Section-3">Buku Tamu</a></li>
+			<li><a href="../home">Home</a></li>
+			<li><a href="compare.php">Perbandingan</a></li>
+			<li class="active"><a href="#">Daftar Smartphone</a></li>
+			<li><a href="feedback.php">Buku Tamu</a></li>
 			
 		</ul>
 	</div>
@@ -63,78 +68,47 @@ experience.
 </div>
 </nav>
 <!-- HOMEPAGE -->
-<header id="top-section" class="fullbg">
-<div class="jumbotron">
-	<div id="carousel_intro" class="carousel slide fadeing">
-		<div class="carousel-inner">
-			<div class="active item" id="slide_1">
-				<div class="carousel-content">					
-					<div class="animated fadeInDownBig">
-						 <h1>Earth provides enough to satisfy every man's need, but not every man's greed.</h1>
-					</div>
-					<br/>
-					<a href="#" class="buttonyellow animated fadeInLeftBig"><i class="fa fa-shopping-cart"></i>&nbsp; Get Theme</a>
-					<a href="#" class="buttoncolor animated fadeInRightBig"><i class="fa fa-link"></i>&nbsp; Start Tour</a>
-					
-				</div>
-			</div>
-			<div class="item" id="slide_2">
-				<div class="carousel-content">					
-					<div class="animated fadeInDownBig">
-						 <h1>A project is complete when it starts working for you, rather than you working for it.</h1>
-					</div>
-					<br/>
-					<a href="#" class="buttoncolor animated fadeInRightBig"><i class="fa fa-link"></i>&nbsp; Learn More</a>
-					
-				</div>
-			</div>
-			<div class="item" id="slide_3">
-				<div class="carousel-content">					
-					<div class="animated fadeInDownBig">
-						 <h1>We help you serving a useful social purpose while generating high-quality profits.</h1>					
-					</div>
-						<br/>
-						<a href="#" class="buttonyellow animated fadeInLeftBig"><i class="fa fa-download"></i>&nbsp; Download Now</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<button class="left carousel-control" href="#carousel_intro" data-slide="prev" data-start="opacity: 0.6; left: 0%;" data-250="opacity:0; left: 5%;"><i class="fa fa-chevron-left"></i></button>
-	<button class="right carousel-control" href="#carousel_intro" data-slide="next" data-start="opacity: 0.6; right: 0%;" data-250="opacity:0; right: 5%;"><i class="fa fa-chevron-right"></i></button>
-</div>
-<div class="inner-top-bg">
-</div>
-</header>
-<!-- / HOMEPAGE -->
-<
 
-<!-- SECTION-6 (contact) -->
-<section id="Section-6" class="fullbg">
-<div class="section-divider">
-</div>
 <div class="container">
 <div class="row">
-	<div class="page-header text-center col-sm-12 col-lg-12 color-white animated fade">
-		<h2>Contact Us</h2>
-		<p class="lead">
-			 Fill out the form and we will call you back
-		</p>
-	</div>
-</div>
-<div class="row animated fadeInUpNow">
-	<div class="col-lg-8 col-md-offset-2">
-		<form action="#" name="MYFORM" id="MYFORM">
-			<input name="name" size="30" type="text" id="name" class="col-lg-6 leftradius" placeholder="Your Name">
-			<input name="email" size="30" type="text" id="email" class="col-lg-6 rightradius" placeholder="E-mail Address">
-			<br/><br/>
-			<textarea id="message" name="message" class="col-lg-12 allradius" placeholder="Message" rows="7"></textarea><br/>
-			<img src="contact/refresh.jpg" alt="" id="refresh" style="width:45px;"/><img src="contact/get_captcha.php" alt="" id="captcha" style="height:45px;"/>
-			<br/>
-			<input name="code" type="text" id="code" placeholder="Enter Captcha" class="top20">
-			<br/>
-			<input value="Send Message" type="submit" id="Send" class="btn btn-default btn-lg">
-			<br/>
-		</form>
+	<div class="col-lg-12">
+	<br/>
+	<br/>
+	<h1>Daftar Smartphone</h1>
+		<div class="table-responsive">
+        	<table class="table table-bordered table-hovered table-condensed">
+        	<tr>
+        		
+        		<th>Brand</th>
+        		<th>Device Name</th>
+        		<?php 
+        			foreach ($rules as $key => $value) {
+        				echo "<th>$value</th>";
+        			}
+        		 ?>
+        	</tr>
+        	<?php 
+        		foreach ($phoneList as $key => $value) {
+        			?>
+        			<tr>
+        				
+        				<td><?php echo "$value[Brand]"; ?></td>
+        				<td><?php echo "$value[Name]"; ?></td>
+        				<?php 
+        					foreach ($value['rule'] as $key1 => $value1) {
+        						# code...
+        					
+        				 ?>
+        				 <td><?php echo "$value1"; ?></td>
+        				 <?php } ?>
+        			</tr>
+
+        			<?php
+        		}
+        	 ?>
+        </table>
+        
+    </div>
 	</div>
 </div>
 </div>
