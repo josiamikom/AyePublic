@@ -1,9 +1,30 @@
+<?php 
+$feedbacks=json_decode(file_get_contents('../home/feedback.json'),true);
+if (!empty($_POST['message'])&& isset($_POST['message'])) {
+    date_default_timezone_set('Asia/Jakarta'); // CDT
+
+
+    $put=$_POST;
+    $put['timestamp']=date('d M Y, h:ia O');
+    $feedbacks[]=$put;
+    file_put_contents('../home/feedback.json', json_encode($feedbacks)); 
+  }
+//date_default_timezone_set('Asia/Jakarta'); // CDT
+
+//$current_date = date('d M Y, h:ia O');
+	//$put[]=array('type'=>'admin','name'=>'Josi Aranda','timestamp'=>$current_date,'message'=>'hello,world');
+	$feedbacks=json_decode(file_get_contents('feedback.json'),true);
+	$feedbacks=array_reverse($feedbacks,true);
+	
+	//file_put_contents('feedback.json', json_encode($put));
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>AyeAye - AHP</title>
+<title>AyeAye - Feedbacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -52,10 +73,10 @@ experience.
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="#">Home</a></li>
+			<li><a href="../home">Home</a></li>
 			<li><a href="compare.php">Perbandingan</a></li>
 			<li><a href="smartphones.php">Daftar Smartphone</a></li>
-			<li><a href="feedback.php">Buku Tamu</a></li>
+			<li class="active"><a href="#">Buku Tamu</a></li>
 			
 		</ul>
 	</div>
@@ -63,45 +84,76 @@ experience.
 </div>
 </nav>
 <!-- HOMEPAGE -->
-<header id="top-section" class="fullbg">
-<div class="jumbotron">
-	<div id="carousel_intro" class="carousel slide fadeing">
-		<div class="carousel-inner">
-			<div class="active item" id="slide_1">
-				<div class="carousel-content">					
-					<div class="animated fadeInDownBig">
-						 <h1>Welcome!! you can start comparing or see our phone database by clicking the button below!</h1>
-					</div>
-					<br/>
-					<a href="compare.php" class="buttonyellow animated fadeInLeftBig"><i class="fa fa-shopping-cart"></i>&nbsp; Compare</a>
-					<a href="smartphones.php" class="buttoncolor animated fadeInRightBig"><i class="fa fa-link"></i>&nbsp; Phone List</a>
-					
-				</div>
-			</div>
-			<div class="item" id="slide_2">
-				<div class="carousel-content">					
-					<div class="animated fadeInDownBig">
-						 <h1>Have feedbacks or suggestions? Don't be shy! talk to us.</h1>
-					</div>
-					<br/>
-					<a href="feedback.php" class="buttoncolor animated fadeInRightBig"><i class="fa fa-link"></i>&nbsp; Feedback</a>
-					
-				</div>
-			</div>
-			
+
+<div class="container">
+	<div class="row">
+	<br>
+	<br>
+		<div class="col-lg-12">
+			<h1>Feedbacks</h1>
+			<h3>Write your feedback</h3>
 		</div>
-	</div>
-	<button class="left carousel-control" href="#carousel_intro" data-slide="prev" data-start="opacity: 0.6; left: 0%;" data-250="opacity:0; left: 5%;"><i class="fa fa-chevron-left"></i></button>
-	<button class="right carousel-control" href="#carousel_intro" data-slide="next" data-start="opacity: 0.6; right: 0%;" data-250="opacity:0; right: 5%;"><i class="fa fa-chevron-right"></i></button>
-</div>
-<div class="inner-top-bg">
-</div>
-</header>
-<!-- / HOMEPAGE -->
-<
+    </div>
+    <div class="row">
+    	<div class="col-lg-12">
+    		<form action="feedback.php" method="post">
+                      
+                      <label class="col-lg-12">Name :</label>
+                      <input type="text" name="name" class="col-lg-12">
+                      <input type="hidden" name="type" value="user">
+                      <label class="col-lg-12">Message :</label>
+                        <textarea class="col-lg-12" name="message" rows="6" placeholder="Write your message here..." required=""></textarea>
+                        <div class="col-lg-12">
+                        	<button type="submit" class="btn btn-success pull-right" style="margin-top:10px;">Submit</button>	
+                        </div>
+                        
+                      </form>
+    	</div>
+    </div>
+    <br/>
+    <div class="row">
+    	<div class="col-lg-12">
+    		<?php 
+    foreach ($feedbacks as $key => $value) {
+      if ($value['type']==='admin') {
+        ?>
+        <div class="col-lg-10 pull-right">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <?php 
+          echo "$value[name] | $value[timestamp]";
+           ?>
+        </div>
+        <div class="panel-body">
+          <?php echo "$value[message]"; ?>
+        </div>
+      </div>
+    </div>
 
-<!-- SECTION-6 (contact) -->
+        <?php
+      }else {
+        ?>
 
+          <div class="col-lg-10 pull-left">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <?php 
+          echo "$value[name] | $value[timestamp]";
+           ?>
+        </div>
+        <div class="panel-body">
+          <?php echo "$value[message]"; ?>
+        </div>
+      </div>
+    </div>
+        <?php
+      }
+    }
+   ?>
+    	</div>
+    </div>
+</div>
+</section>
 <!-- FOOTER -->
 <footer id="foot-sec">
 <div class="footerdivide">

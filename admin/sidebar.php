@@ -53,7 +53,7 @@ if (isset($_GET['name'])) {
                 <a href="info.php"><i class="fa fa-mobile "></i>Informasi Smartphone</a>
             </li>
             <li <?php echo (end(explode("/", $_SERVER['REQUEST_URI']))==='blank.php') ? 'class="active-link"' : '' ; ?>>
-                <a href="tamu.php"><i class="fa fa-flag "></i>Tamu</a>
+                <a href="tamu.php"><i class="fa fa-flag "></i>Buku Tamu</a>
             </li>
 
 
