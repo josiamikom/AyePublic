@@ -2,6 +2,22 @@
 	$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
 	$rules=array_keys( reset($phoneList)['rule']);
 
+	if (!empty($_GET['search'])) {
+		foreach ($phoneList as $key => $value) {
+			if (strpos(strtolower($value['Name']), strtolower($_GET['search']))!==false) {
+				$results[]=$key;
+			}
+		}
+		if (!empty($results)) {
+			foreach ($results as $key => $value) {
+				$temp[]=$phoneList[$value];
+			}
+			$phoneList=$temp;
+		}else {
+			$noresult=true;
+		}
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,10 +91,22 @@ experience.
 	<br/>
 	<br/>
 	<h1>Daftar Smartphone</h1>
+	<form action="smartphones.php" method="get">
+           	<input class="form-control col-lg-" type="text" name="search" placeholder="Search smartphone..." >
+    <?php if (!empty($noresult)&&$noresult===true) {
+    	?>
+    	<div class="alert alert-danger">
+    		No result found for '<?php echo "$_GET[search]"; ?>'
+    	</div>
+    	<?php
+    } ?>
+           
+             
+        </form>
 		<div class="table-responsive">
         	<table class="table table-bordered table-hovered table-condensed">
         	<tr>
-        		
+        		<th>Full Spec</th>
         		<th>Brand</th>
         		<th>Device Name</th>
         		<?php 
@@ -91,7 +119,7 @@ experience.
         		foreach ($phoneList as $key => $value) {
         			?>
         			<tr>
-        				
+        				<td><a href=<?php echo "'spec.php?brand=$value[Brand]&name=$value[Name]'"; ?>><i class="fa fa-edit"></i></a></td>
         				<td><?php echo "$value[Brand]"; ?></td>
         				<td><?php echo "$value[Name]"; ?></td>
         				<?php 
