@@ -117,7 +117,7 @@ experience.
     foreach ($feedbacks as $key => $value) {
       if ($value['type']==='admin') {
         ?>
-        <div class="col-offset-2 col-lg-10">
+        <div class="col-lg-10 pull-right">
       <div class="panel panel-warning">
         <div class="panel-heading">
           <?php 
@@ -134,7 +134,7 @@ experience.
       }else {
         ?>
 
-          <div class="col-lg-10 col-offset-2">
+          <div class="col-lg-10 pull-left">
       <div class="panel panel-info">
         <div class="panel-heading">
           <?php 
