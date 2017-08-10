@@ -84,7 +84,7 @@
                   </div>
                   <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                       <div class="div-square">
-                           <a href="blank.html" >
+                           <a href="createadmin.php" >
  <i class="fa fa-users fa-5x"></i>
                       <h4>Add Admin</h4>
                       </a>
