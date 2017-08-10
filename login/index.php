@@ -9,6 +9,7 @@ $error=0;
 		if (array_key_exists($_POST['username'], $credentials)) {
 			if ($_POST['password']===$credentials[$_POST['username']]['password']) {
 				setcookie("session",$_POST['username'],time()+3600,'/');
+				setcookie("name",$credentials[$_POST['username']]['name'],time()+3600,'/');
 				header("location:../admin/");
 			} else {
 				$error=2;

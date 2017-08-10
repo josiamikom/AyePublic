@@ -17,7 +17,7 @@
   date_default_timezone_set('Asia/Jakarta'); // CDT
 
 $current_date = date('d M Y, h:ia O');
-$name=$_COOKIE['session'];
+$name=$_COOKIE['name'];
 	require_once 'header.php';
 ?>
 
