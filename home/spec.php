@@ -21,7 +21,6 @@
 	$keys=$_GET['brand'].$_GET['name'];
 	$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
 	$phone=$phoneList[$keys];
-		print_r($phone);
 	}
  ?>
 
@@ -105,7 +104,7 @@ experience.
       	$specs=$device->specs;
       	foreach ($specs as $name => $value) {
       		echo "<h3>$name</h3>";
-      		echo "<table class='table table-striped'>";
+      		echo "<table class='table table-striped table-responsive'>";
       		foreach ($value as $valname => $val) {
       			echo "<tr>";
       			echo "<td style='width:100px'>$valname</td>";
