@@ -9,6 +9,10 @@ if (!isset($_COOKIE['session'])) {
   		$credential[$_COOKIE['session']]['name']=$_POST['name'];
   		$credential[$_COOKIE['session']]['email']=$_POST['email'];
   		file_put_contents('../login/accounts.json', json_encode($credential));
+  	}elseif ($_POST['type']==='delete') {
+  		unset($credential[$_COOKIE['session']]);
+  		file_put_contents('../login/accounts.json', json_encode($credential));
+  		header('location:logout.php');
   	}else {
   	$data=$_POST;
   	if ($data['old']===$credential[$_COOKIE['session']]['password']) {
@@ -130,7 +134,18 @@ if (!isset($_COOKIE['session'])) {
                 	</div>
                 </div>            
                  <!-- /. ROW  --> 
-                
+                <div class="row">
+                	<div class="col-lg-12">
+                	<h3>Delete My Account</h3>
+                		<form action="myaccount.php" method="post">
+                			<input type="hidden" name="type" value="delete">
+                			<div class="alert alert-danger">
+                				<strong>This action can't be undone!!</strong> Your message will still appear in the feedbacks<br/>
+                				<button type="submit" class="btn btn-danger">I understand. Delete my account.</button>
+                			</div>
+                		</form>
+                	</div>
+                </div>
                   <!-- /. ROW  --> 
     </div>
              <!-- /. PAGE INNER  -->
