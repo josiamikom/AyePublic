@@ -62,8 +62,8 @@ experience.
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="compare.php">Perbandingan</a></li>
+			<li><a href="../home">Home</a></li>
+			<li class="active"><a href="#">Perbandingan</a></li>
 			<li><a href="smartphones.php">Daftar Smartphone</a></li>
 			<li><a href="feedback.php">Buku Tamu</a></li>
 			
