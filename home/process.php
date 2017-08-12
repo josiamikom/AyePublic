@@ -3,6 +3,7 @@
 		$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
 		require_once '../lib/AHP.php';
 		$hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
+		$subhierarki1=$hierarki1->child;
 
 		foreach ($hierarki1->getPV() as $key => $value) {
 			$main[$key]['pv']=$value;
@@ -20,6 +21,9 @@
 		foreach ($phones as $key => $rules) {
 			foreach ($rules as $rule => $value) {
 				$calculate[$key][$rule]=$main[$rule]['pv']*$main[$rule]['sub'][$value]['pv'];
+				$formula[$key][$rule]['kriteria']=$main[$rule]['pv'];
+				$formula[$key][$rule]['sub']=$main[$rule]['sub'][$value]['pv'];
+				$formula[$key][$rule]['value']=$calculate[$key][$rule];
 			}
 			$result[$key]=array_sum($calculate[$key]);
 		}
@@ -27,6 +31,11 @@
 			$finalresult["$value"][]=$key;
 		}
 		arsort($finalresult);
+		foreach ($finalresult as $key => $value) {
+			foreach ($value as $key1 => $value1) {
+				$explain[$value1]=$formula[$value1];
+			}
+		}
 		$rank=array_keys($finalresult);
 		rsort($rank);
 		foreach ($rank as $key => $value) {
@@ -186,10 +195,326 @@ experience.
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<a href="#ahp" data-toggle="collapse" style="text-decoration: none;">
+						<div class="col-lg-12" style="color: white;">
+							<i class="fa fa-chevron-down "></i><strong> Perhitungan AHP</strong>
+						</div>
+					</a>
+				</div>
+				<div id="ahp" class="panel-collapse collapse">
+					<div class="panel-body" style="align-content: center;">
+					<?php
+						$pv=$hierarki1->getPV();
+									          echo "<table class='table table-striped table-bordered '>";
+									          echo "<tr>";
+									          foreach ($hierarki1->name as $key => $value) {
+									            echo "<td>".$value."</td>";
+									          }
+									          echo "</tr><tr>";
+									          foreach ($pv as $key => $value) {
+									            echo "<td>".$value."</td>";
+									          }
+									          echo "</tr>";
+									          echo "</table>";
+									          ?>
+									          <div  style="text-align: center;"><i class="fa fa-arrow-down fa-5x"></i>
+									          	
+									          </div>
+									          <?php
+			          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+			          echo "<tr><td>Name</td>";
+			          $pv=$hierarki1->getPV();
+			          foreach ($hierarki1->name as $key => $value) {
+			            echo "<td colspan='2'><strong>$value</strong></td>";
+			          }
+			          echo "</tr>";
+			          foreach ($printspec as $key => $value) {
+			          	foreach ($value as $key1 => $value1) {
+			          		$index=str_replace(' | ', '', $key1);
+			          		?>
+			          		<tr>
+			          			<td><?php echo "$key1"; ?></td>
+			          			<?php 
+			          			foreach ($phones[$index] as $key => $value) {
+			          				?>
+			          				<td><strong><?php echo substr($explain[$index][$key]['kriteria'], 0,6); ?></strong></td>
+			          			<td><?php echo $value; ?></td>
+			          				<?php
+			          			}
+			          			 ?>
+			          		</tr>
+			          		<?php
+			          	}
+			          }
+			          
+			          echo "</table>";
+			          ?>	
+			          <div  style="text-align: center;"><i class="fa fa-arrow-down fa-5x"></i>
+									          	
+									          </div>
+					<?php 
+						foreach ($subhierarki1 as $key => $value) {
+							$hierarki12=new Kriteria($value);
+							
+										          $pv=$hierarki12->getPV();
+										          
+										          ?>
+										          <h3><?php echo "$key"; ?></h3>
+
+										          <?php
+										          echo "<table class='table table-striped table-bordered '>";
+										          echo "<tr>";
+										          foreach ($hierarki12->name as $key => $value) {
+										            echo "<td>".$value."</td>";
+										          }
+										          echo "</tr><tr>";
+										          foreach ($pv as $key => $value) {
+										            echo "<td>".$value."</td>";
+										          }
+										          echo "</tr>";
+										          echo "</table>";
+										          
+						}
+						 ?>
+						 <div  style="text-align: center;"><i class="fa fa-arrow-down fa-5x"></i>
+									          	
+									          </div>
+					<?php
+			          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+			          echo "<tr><td>Name</td>";
+			          $pv=$hierarki1->getPV();
+			          foreach ($hierarki1->name as $key => $value) {
+			            echo "<td colspan='2'><strong>$value</strong></td>";
+			          }
+			          echo "</tr>";
+			          foreach ($printspec as $key => $value) {
+			          	foreach ($value as $key1 => $value1) {
+			          		$index=str_replace(' | ', '', $key1);
+			          		?>
+			          		<tr>
+			          			<td><?php echo "$key1"; ?></td>
+			          			<?php 
+			          			foreach ($explain[$index] as $keyx => $valuex) {
+			          				?><td><strong><?php echo substr($valuex['kriteria'], 0,6); ?></strong></td>
+			          				<td><strong><?php echo substr($valuex['sub'], 0,6); ?></strong></td><?php
+			          			}
+			          			 ?>
+			          		</tr>
+			          		<?php
+			          	}
+			          }
+			          
+			          echo "</table>";
+			          ?>
+			          <div  style="text-align: center;"><i class="fa fa-arrow-down fa-5x"></i>
+									          	
+									          </div>
+									          <?php
+			          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+			          echo "<tr><td>Name</td>";
+			          $pv=$hierarki1->getPV();
+			          foreach ($hierarki1->name as $key => $value) {
+			            echo "<td><strong>$value</strong></td>";
+			          }
+			          echo "</tr>";
+			          foreach ($printspec as $key => $value) {
+			          	foreach ($value as $key1 => $value1) {
+			          		$index=str_replace(' | ', '', $key1);
+			          		?>
+			          		<tr>
+			          			<td><?php echo "$key1"; ?></td>
+			          			<?php 
+			          			foreach ($explain[$index] as $keyx => $valuex) {
+			          				?><td><strong><?php echo substr($valuex['value'], 0,6); ?></strong></td>
+			          				<?php
+			          			}
+			          			 ?>
+			          		</tr>
+			          		<?php
+			          	}
+			          }
+			          
+			          echo "</table>";
+			          ?>
+			          <div  style="text-align: center;"><i class="fa fa-arrow-down fa-5x"></i>
+
+									          </div>
+									          <?php
+			          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+			          echo "<tr><td>Name</td><td></td><td><strong>Result</strong></td>";
+
+			          echo "</tr>";
+			          foreach ($printspec as $key => $value) {
+			          	foreach ($value as $key1 => $value1) {
+			          		$index=str_replace(' | ', '', $key1);
+			          		?>
+			          		<tr>
+			          			<td><?php echo "$key1"; ?></td>
+			          			<?php
+			          			$totalstr='';
+			          			$total=0;
+			          			foreach ($explain[$index] as $keyx => $valuex) {
+			          				$totalstr[]=substr($valuex['value'], 0,6);
+			          				$total+=$valuex['value'];
+			          			}
+			          			 ?>
+											 <td><?php echo implode(' + ', $totalstr); ?></td>
+											 <td><strong><?php echo $total; ?></strong></td>
+			          		</tr>
+			          		<?php
+			          	}
+			          }
+
+			          echo "</table>";
+			          ?>
+						<div class="row">
+							<div class="col-lg-12">
+							<h3>Kriteria</h3>
+								<div class="panel panel-success">
+									<div class="panel-heading">
+										<a href="#kriteria" data-toggle="collapse" style="text-decoration: none;">
+											<div class="col-lg-12" >
+												<i class="fa fa-chevron-down "></i>Kriteria
+											</div>
+										</a>
+									</div>
+									<div id="kriteria" class="panel-collapse collapse">
+										<div class="panel-body">
+											<h3>Priorities</h3>
+											<?php
+									          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+									          echo "<tr><td></td>";
+									          $pv=$hierarki1->getPV();
+									          foreach ($hierarki1->name as $key => $value) {
+									            echo "<td>$value</td>";
+									          }
+									          echo "</tr>";
+									          foreach ($hierarki1->values as $i => $value) { 
+									            echo "<tr>";
+									            echo "<td>".$hierarki1->name[$i]."</td>";
+									            for ($j=0; $j < sizeof($hierarki1->values); $j++) { 
+									              echo "<td>".$hierarki1->values[$i][$j]."</td>";
+
+									            }
+
+									          }
+									          echo "</table>";
+									          ?>
+									          <h3>Priority Vector (PV)</h3>
+
+									          <?php
+									          echo "<table class='table table-striped table-bordered '>";
+									          echo "<tr>";
+									          foreach ($hierarki1->name as $key => $value) {
+									            echo "<td>".$value."</td>";
+									          }
+									          echo "</tr><tr>";
+									          foreach ($pv as $key => $value) {
+									            echo "<td>".$value."</td>";
+									          }
+									          echo "</tr>";
+									          echo "</table>";
+									          ?>
+									          <h3>Consistency Ratio (CR)</h3>
+
+									          <?php
+									          echo "<table class='table table-bordered '>";
+									          if ($hierarki1->getCR()['value']<=0.1) {
+									            echo "<tr class='success'><td>".$hierarki1->getCR()["status"]."</td></tr>";
+									          }else {
+									            echo "<tr class='danger'><td>".$hierarki1->getCR()['status']."</td></tr>";
+									          }
+									          echo "<tr><td>".$hierarki1->getCR()['value']."</td></tr>";
+
+									          echo "</table>";
+									          ?>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h3>Sub Kriteria</h3>
+						<?php 
+						foreach ($subhierarki1 as $key => $value) {
+							$hierarki12=new Kriteria($value);
+							$index=str_replace(' ', '_', $key);
+							?>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-warning">
+										<div class="panel-heading">
+											<a href=<?php echo "'#$index'"; ?> data-toggle="collapse" style="text-decoration: none;">
+												<div class="col-lg-12" >
+													<i class="fa fa-chevron-down "></i><?php echo "$key"; ?>
+												</div>
+											</a>
+										</div>
+										<div id=<?php echo "'$index'"; ?> class="panel-collapse collapse">
+											<div class="panel-body">
+												<h3>Priorities</h3>
+												<?php
+										          echo "<table id='bobot' class='table table-striped table-bordered table-hover table-responsive'>";
+										          echo "<tr><td></td>";
+										          $pv=$hierarki12->getPV();
+										          foreach ($hierarki12->name as $key => $value) {
+										            echo "<td>$value</td>";
+										          }
+										          echo "</tr>";
+										          foreach ($hierarki12->values as $i => $value) { 
+										            echo "<tr>";
+										            echo "<td>".$hierarki12->name[$i]."</td>";
+										            for ($j=0; $j < sizeof($hierarki12->values); $j++) { 
+										              echo "<td>".$hierarki12->values[$i][$j]."</td>";
+
+										            }
+
+										          }
+										          echo "</table>";
+										          ?>
+										          <h3>Priority Vector (PV)</h3>
+
+										          <?php
+										          echo "<table class='table table-striped table-bordered '>";
+										          echo "<tr>";
+										          foreach ($hierarki12->name as $key => $value) {
+										            echo "<td>".$value."</td>";
+										          }
+										          echo "</tr><tr>";
+										          foreach ($pv as $key => $value) {
+										            echo "<td>".$value."</td>";
+										          }
+										          echo "</tr>";
+										          echo "</table>";
+										          ?>
+										          <h3>Consistency Ratio (CR)</h3>
+
+										          <?php
+										          echo "<table class='table table-bordered '>";
+										          if ($hierarki12->getCR()['value']<=0.1) {
+										            echo "<tr class='success'><td>".$hierarki12->getCR()["status"]."</td></tr>";
+										          }else {
+										            echo "<tr class='danger'><td>".$hierarki12->getCR()['status']."</td></tr>";
+										          }
+										          echo "<tr><td>".$hierarki12->getCR()['value']."</td></tr>";
+
+										          echo "</table>";
+										          ?>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<?php
+						}
+						 ?>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+	</div>
 
 <!-- SECTION-6 (contact) -->
 
