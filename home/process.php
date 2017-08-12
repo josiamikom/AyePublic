@@ -1,14 +1,55 @@
 <?php 
-	$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
-	ksort($phoneList);
-	require_once '../lib/AHP.php';
-	$hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
-	foreach ($hierarki1->child as $key => $value) {
-      		foreach ($value['name'] as $key1 => $value1) {
-      			$choice[$key][]=$value1;
-      		}
-      	}
+	if (!empty($_POST)) {
+		$phoneList=json_decode(file_get_contents('../lib/phone/phoneList.json'),true);
+		require_once '../lib/AHP.php';
+		$hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
+
+		foreach ($hierarki1->getPV() as $key => $value) {
+			$main[$key]['pv']=$value;
+			$child=new Kriteria($hierarki1->child[$key]);
+			foreach ($child->getPV() as $key1 => $value1) {
+				$main[$key]['sub'][$key1]['pv']=$value1;
+			}
+		}
+		foreach ($_POST['phones'] as $key => $value) {
+			if (!empty($value)) {
+				$phones[$value]=$phoneList[$value]['rule'];
+			}
+		}
+
+		foreach ($phones as $key => $rules) {
+			foreach ($rules as $rule => $value) {
+				$calculate[$key][$rule]=$main[$rule]['pv']*$main[$rule]['sub'][$value]['pv'];
+			}
+			$result[$key]=array_sum($calculate[$key]);
+		}
+		foreach ($result as $key => $value) {
+			$finalresult["$value"][]=$key;
+		}
+		arsort($finalresult);
+		$rank=array_keys($finalresult);
+		rsort($rank);
+		foreach ($rank as $key => $value) {
+			foreach ($finalresult["$value"] as $key1 => $value1) {
+				$print[$key+1][]=$phoneList[$value1]['Name'];
+			}
+		}
+		include_once '../lib/fonoApi/fonoApi.php';
+		include_once '../lib/phoneClass.php';
+		$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
+		$fonoApi=fonoApi::debug($token);
+
+		foreach ($print as $key => $value) {
+			foreach ($value as $key1 => $value1) {
+				$get=$fonoApi::getDevice($value1,0);
+				$spec=new phoneClass($get[0]);
+				$printspec[$key]["$spec->Brand | $spec->DeviceName"]=$spec->specs;
+			}
+			
+		}
+	}
  ?>
+
  <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +88,7 @@ experience.
 <![endif]-->
 </head>
 <!-- /head-->
-<body data-spy="scroll" data-target=".navbar">
+<body d>
 <nav id="topnav" class="navbar navbar-fixed-top navbar-default" role="navigation">
 <div class="container">
 	<!-- Brand and toggle get grouped for better mobile display -->
@@ -64,7 +105,7 @@ experience.
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="../home">Home</a></li>
-			<li class="active"><a href="#">Perbandingan</a></li>
+			<li class="active"><a href="compare.php">Perbandingan</a></li>
 			<li><a href="smartphones.php">Daftar Smartphone</a></li>
 			<li><a href="feedback.php">Buku Tamu</a></li>
 			
@@ -79,110 +120,73 @@ experience.
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1>Perbandingan Smartphone</h1>
+			<h1>Hasil Pencarian</h1>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-12">
+		<?php 
+		$counter=0;
+		$outercounter=0;
+		foreach ($printspec as $key => $value) {
+			foreach ($value as $key1 => $value1) {
+				$index=str_replace(' ', '', $key1);
+				$index=str_replace('|', '_', $index);
+				$counter++;
+				$outercounter++;
+				if ($counter===1) {
+					?><div class="row"><?php
+				}
+				?>
+				<div class="col-lg-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<a href=<?php echo "'#$index'"; ?> data-toggle="collapse" style="text-decoration: none;">
+								<div class="col-lg-12" style="color: white;">
+									<i class="fa fa-chevron-down "></i><?php echo " <strong style='font-size:150%;'>#$key.</strong> $key1"; ?>
+								</div>
+							</a>
+						</div>
+						<div id=<?php echo "'$index'"; ?> class="panel-collapse collapse">
+							<div class="panel-body">
+								<?php 
+						      	$specs=$value1;
+						      	foreach ($specs as $name => $value1) {
+						      		echo "<h3>$name</h3>";
+						      		echo "<table class='table table-striped table-responsive'>";
+						      		foreach ($value1 as $valname => $val) {
+						      			echo "<tr>";
+						      			echo "<td style='width:100px'>$valname</td>";
+						      			echo "<td>$val</td>";
+						      			echo "</tr>";
+						      		}
+						      		echo "</table>";
+						      	}
+
+						       ?>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<?php
+				if ($counter===3) {
+					$counter=0;
+					?></div><?php
+				}
+			}
+		}
+		if ($outercounter%3!=0) {
+				?></div><?php
+			}
+		 ?>
+		
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-6">
-			<h3>Cari berdasar kriteria</h3>
-			<form action="find.php" method="post">
-				<?php foreach ($choice as $key => $value) {
-	
- ?>
-	<div class="form-group">
-		<label><?php echo "$key :"; ?></label>
-		<select name=<?php echo "'value"."[$key]'"; ?> class="form-control">
-		<?php foreach ($value as $key1 => $value1) {
-			# code...
-		 ?>
-			<option value=<?php echo "'$value1'"; ?>><?php echo "$value1"; ?></option>
-			<?php  }?>
-		</select>
-	</div>
-
-
-<?php 
-	
-	}
- ?>
-				<div class="form-group pull-right">
-					<button type="submit" class="btn btn-success">Cari</button>
-				</div>
-			</form>
-		</div>
-		<br>
-		<div class="col-lg-6">
-			<h3>Cari berdasar smartphone</h3>
-			<p>Dengan metode AHP. (min. 2 smartphone, maks. 6 smartphone)</p>
-			<form action="process.php" method="post">
-				<div class="form-group">
-					<select class="form-control" name="phones[]" required="">
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-					<select class="form-control" name="phones[]" required="">
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-					<select class="form-control" name="phones[]" >
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-					<select class="form-control" name="phones[]" >
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-					<select class="form-control" name="phones[]" >
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-					<select class="form-control" name="phones[]" >
-						<option value="">Select Smartphone</option>
-						<?php 
-						foreach ($phoneList as $key => $value) {
-							?>
-							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
-							<?php
-						}
-						 ?>
-					</select>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-success pull-right">Submit</button>
-				</div>
-			</form>
-			<br>
-			<br>
+		<div class="col-lg-12">
+			
 		</div>
 	</div>
 </div>

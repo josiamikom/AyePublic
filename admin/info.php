@@ -94,16 +94,18 @@ require_once 'header.php'; ?>
        			<?php
        		}
         ?>
-       
-       <div class="col-lg-12">
-       	<form action="search.php" method="post">
+       <div class="row">
+         <div class="col-lg-12">
+        <form action="search.php" method="post">
            
            
              <button type="submit" class="btn btn-info pull-right">Tambah Smartphone</button>
         </form>
        </div>
+       </div>
        
-
+       
+       
         <div class="col-lg-12">
         <div class="table-responsive">
         	<table class="table table-bordered table-hovered table-condensed">
