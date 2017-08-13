@@ -11,13 +11,19 @@
 		foreach ($phoneList as $key => $value) {
 			if ($_POST['value']===$value['rule']) {
 				$result[$key]=$value;
+				$imgpath[$key]=$value['imagepath'];
 			}
 		}
 		if (!empty($result)) {
 			foreach ($result as $key => $value) {
+				
 				try {
-					$get=$fonoApi::getDevice($value['Name'],0);
-					$devices[]=new phoneClass($get[0]);
+					$get=$fonoApi::getDevice($value['Name']);
+					foreach ($get as $aa => $bb) {
+						if ($bb->DeviceName===$value['Name']) {
+							$devices[]=new phoneClass($get[$aa]);
+						}
+					}
 					
 					
 				} catch (Exception $e) {
@@ -29,6 +35,7 @@
 		}
 
 	}	
+	print_r($imgpath);
 
 	//echo "<pre>";
 	//print_r($result);
@@ -129,10 +136,17 @@ experience.
 				if ($counter===1) {
 					?><div class="row"><?php
 				}
+				$imgindex=$value->Brand.$value->DeviceName;
 				?>
 				<div class="col-lg-4">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
+					<div class="panel panel-primary" style="border-radius: 25px"> 
+						<div class="panel-heading" style="border-radius: 25px">
+							<div style="background-color: white;border-radius: 25px">
+								<div style="width: 150px;height: 150px;display: block;margin: 0 auto;">
+									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$value->DeviceName'"; ?> class="img-responsive img-rounded" style="">
+								</div>
+							</div>
+							<hr style="margin-bottom: 5px;margin-top: 10px">
 							<a href=<?php echo "'#$key'"; ?> data-toggle="collapse" style="text-decoration: none;">
 								<div class="col-lg-12" style="color: white;">
 									<strong><i class="fa fa-chevron-down "></i><?php echo " $value->Brand </strong> | $value->DeviceName"; ?>

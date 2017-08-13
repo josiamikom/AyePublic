@@ -7,10 +7,15 @@
 		$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
 	
 	$fonoApi=fonoApi::debug($token);
+	
 	try {
 		if (!empty($_GET['name'])) {
-			$result=$fonoApi::getDevice($_GET['name'],0);
-			$device=new phoneClass($result[0]);
+			$result=$fonoApi::getDevice($_GET['name']);
+			foreach ($result as $key => $value) {
+				if ($value->DeviceName===$_GET['name']) {
+					$device=new phoneClass($result[$key]);
+				}
+			}
 			
 			
 		}
@@ -95,9 +100,10 @@ experience.
 	<div class="col-lg-12">
 	<br/>
 	<br/>
+	<br/>
 	<div class="col-lg-4">
-      <div class="panel panel-primary">
-      <div class="panel-heading"><?php echo "$device->Brand | $device->DeviceName"; ?></div>
+      <div class="panel panel-primary" style="border-radius: 25px">
+      <div class="panel-heading" style="border-radius: 25px"><?php echo "$device->Brand | $device->DeviceName"; ?></div>
       <div class="panel-body">
 
       <?php 
@@ -134,6 +140,10 @@ experience.
         			}
         		 ?>
         	</table>
+        	<div style="width: 200px;height: 200px">
+        		<img src=<?php echo "'../lib/phone/img/$phone[imagepath]'"; ?> alt=<?php echo "'$name'"; ?> class="img-responsive img-rounded" >	
+        	</div>
+        	
         </div>
 	</div>
 </div>

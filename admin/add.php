@@ -11,8 +11,13 @@ if (!isset($_COOKIE['session'])) {
 	$fonoApi=fonoApi::debug($token);
 	try {
 		if (!empty($_GET['name'])) {
-			$result=$fonoApi::getDevice($_GET['name'],0);
-			$device=new phoneClass($result[0]);
+			$results=$fonoApi::getDevice($_GET['name']);
+      foreach ($results as $key => $value) {
+        if ($value->DeviceName===$_GET['name']) {
+          $result=$results[$key];
+        }
+      }
+			$device=new phoneClass($result);
 			
 			
 		}
@@ -83,9 +88,16 @@ require_once 'header.php';
     </div>
         </div>
 <div class="col-lg-8">
-<form action="insert.php" method="post">
+<form action="insert.php" method="post" enctype="multipart/form-data">
 <input type="hidden" name="Brand" value=<?php echo "'$device->Brand'"; ?>>
 <input type="hidden" name="Name" value=<?php echo "'$device->DeviceName'"; ?>>
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 200px;"></div>
+  <div>
+    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
 <?php foreach ($choice as $key => $value) {
 	
  ?>
@@ -135,6 +147,10 @@ require_once 'header.php';
     <script src="../assets/js/custom.js"></script>
 <!-- js SCRIPTS -->
 <script src="../assets/js/js.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
 
 
 </body>

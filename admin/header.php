@@ -14,4 +14,5 @@
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <!-- Favicon-->
    <link rel="shortcut icon" type="image/png" href="../assets/img/awas.png"/>
+   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
 </head>

@@ -15,6 +15,7 @@
 		foreach ($_POST['phones'] as $key => $value) {
 			if (!empty($value)) {
 				$phones[$value]=$phoneList[$value]['rule'];
+				$imgpath[$value]=$phoneList[$value]['imagepath'];
 			}
 		}
 
@@ -50,8 +51,14 @@
 
 		foreach ($print as $key => $value) {
 			foreach ($value as $key1 => $value1) {
-				$get=$fonoApi::getDevice($value1,0);
-				$spec=new phoneClass($get[0]);
+				$resultss=$fonoApi::getDevice($value1);
+			    foreach ($resultss as $key2 => $value2) {
+			      if ($value2->DeviceName===$value1) {
+			        $resulta=$resultss[$key2];
+			      }
+			    }
+						
+				$spec=new phoneClass($resulta);
 				$printspec[$key]["$spec->Brand | $spec->DeviceName"]=$spec->specs;
 			}
 			
@@ -142,6 +149,7 @@ experience.
 			foreach ($value as $key1 => $value1) {
 				$index=str_replace(' ', '', $key1);
 				$index=str_replace('|', '_', $index);
+				$imgindex=str_replace(' | ', '', $key1);
 				$counter++;
 				$outercounter++;
 				if ($counter===1) {
@@ -149,11 +157,17 @@ experience.
 				}
 				?>
 				<div class="col-lg-4">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
+					<div class="panel panel-primary" style="border-radius: 25px">
+						<div class="panel-heading" style="border-radius: 25px">
+							<div style="background-color: white;border-radius: 25px">
+								<div style="width: 150px;height: 150px;display: block;margin: 0 auto;">
+									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$key1'"; ?> class="img-responsive img-rounded" style="">
+								</div>
+							</div>
+							<hr style="margin-bottom: 5px;margin-top: 10px">
 							<a href=<?php echo "'#$index'"; ?> data-toggle="collapse" style="text-decoration: none;">
 								<div class="col-lg-12" style="color: white;">
-									<i class="fa fa-chevron-down "></i><?php echo " <strong style='font-size:150%;'>#$key.</strong> $key1"; ?>
+									<i class="fa fa-chevron-down "></i><?php echo " <strong style='font-size:150%;'>$key.</strong> $key1"; ?>
 								</div>
 							</a>
 						</div>
@@ -195,8 +209,8 @@ experience.
 	</div>
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
+			<div class="panel panel-primary" style="border-radius: 25px">
+				<div class="panel-heading" style="border-radius: 25px">
 					<a href="#ahp" data-toggle="collapse" style="text-decoration: none;">
 						<div class="col-lg-12" style="color: white;">
 							<i class="fa fa-chevron-down "></i><strong> Perhitungan AHP</strong>

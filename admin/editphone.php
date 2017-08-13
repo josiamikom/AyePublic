@@ -87,9 +87,19 @@ if (!isset($_COOKIE['session'])) {
     </div>
         </div>
 <div class="col-lg-8">
-<form action="update.php" method="post">
+<form action="update.php" method="post" enctype="multipart/form-data">
 <input type="hidden" name="Brand" value=<?php echo "'$_GET[brand]'"; ?>>
 <input type="hidden" name="Name" value=<?php echo "'$_GET[name]'"; ?>>
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+    <img src=<?php echo "'../lib/phone/img/$phone[imagepath]'"; ?> alt=<?php echo "'$phone[Name]'"; ?>>
+  </div>
+  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+  <div>
+    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="image"></span>
+    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+  </div>
+</div>
 <?php foreach ($ruless as $key => $value) {
 	
  ?>
@@ -141,6 +151,8 @@ if (!isset($_COOKIE['session'])) {
     <script src="../assets/js/custom.js"></script>
 <!-- js SCRIPTS -->
 <script src="../assets/js/js.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
 
 
 </body>
