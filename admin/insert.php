@@ -34,7 +34,6 @@ if (!isset($_COOKIE['session'])) {
       $put[$key]=$data;
     }
     
-    print_r($put);
     
     file_put_contents('../lib/phone/phoneList.json', json_encode($put));
       header("location:info.php");
