@@ -1,1 +1,27 @@
-{"josiaranda":{"name":"Josi Aranda","email":"josiaranda21@gmail.com","password":"1234"},"tukutuk":{"name":"Muhammad Yusri Pratama","email":"josiarandhita@gmail.com","password":"12345"}}
+{
+	"galvani": {
+		"name": "Admin GN",
+		"email": "galvaninatasya@gmail.com",
+		"password": "232323"
+	},
+	"josiaranda": {
+		"name": "Josi Aranda",
+		"email": "josiaranda21@gmail.com",
+		"password": "1234"
+	},
+	"dedek": {
+		"name": "Muhammad Yusran Arsyadi",
+		"email": "dedek@gmail.com",
+		"password": "12345"
+	},
+	"elsa": {
+		"name": "Elsa",
+		"email": "babayeye12@gmail.com",
+		"password": "qwerty"
+	},
+	"admin": {
+		"name": "Admin",
+		"email": "admin@gmail.com",
+		"password": "admin"
+	}
+}

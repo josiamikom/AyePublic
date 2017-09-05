@@ -101,7 +101,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 	<h1>Login</h1>
 	<?php 
 		if ($error===1) {
-			?><h3 style="color: red;text-align: center">No User found</h3><?php
+			?><h3 style="color: red;text-align: center">No User Found</h3><?php
 		}
 		if ($error===2) {
 			?><h3 style="color: red;text-align: center">Wrong Password</h3><?php
@@ -112,7 +112,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
     <form action="index.php" method="post">
     	<input type="text" name="username" placeholder="Username" required="required" />
         <input type="password" name="password" placeholder="Password" required="required" />
-        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Let me in</button>
     </form>
 </div>
   

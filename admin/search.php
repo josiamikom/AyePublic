@@ -2,16 +2,21 @@
 if (!isset($_COOKIE['session'])) {
     header("location:../");
   }
+
+
 	include_once '../lib/fonoApi/fonoApi.php';
 	$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
 	$fonoApi=fonoApi::debug($token);
 	try {
 		if (!empty($_GET['keyword'])) {
 			$result=$fonoApi::getDevice($_GET['keyword']);
+      $found=1;
 		}
 		
 	} catch (Exception $e) {
-		echo "ERROR : " . $e->getMessage();
+		if (strpos($e->getMessage(), 'No Matching Results Found.')!==false) {
+      $found=0;
+    }
 	}
 require_once 'header.php';
  ?>
@@ -54,12 +59,20 @@ require_once 'header.php';
        <hr />
        <form action="search.php" method="get">
            	<input class="form-control col-lg-" type="text" name="keyword" placeholder="Search here..." value=<?php echo (!empty($result)) ? $_GET['keyword'] : '' ; ?>>
-           
+			
              
         </form>
         <br>
         <div>
-        
+          <?php 
+            if ($found==0) {
+                ?>
+                <div class="alert alert-danger">
+                  Smartphone not found.
+                </div>
+                <?php
+            }
+           ?>
         
         	<?php $spec=''; if (!empty($result)) {
         		?><table class='table table-striped  table-hover' >
@@ -90,7 +103,7 @@ require_once 'header.php';
 
   <div class="row">
     <div class="col-lg-12" >
-      &copy;  2014 yourdomain.com | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
+      &copy;  2017 Galvani Natasya | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
     </div>
   </div>
 </div>

@@ -6,7 +6,13 @@
 		$noresult=0;
 	require_once '../lib/AHP.php';
 		$token='d0275c61dc28964d454ba894f521d8815d5d612c779195c0';
-
+		$hierarki1=new Kriteria(json_decode(file_get_contents('../lib/kriteria/kriteria.json'),true));
+	foreach ($hierarki1->child as $key => $value) {
+      		foreach ($value['name'] as $key1 => $value1) {
+      			$choice[$key][]=$value1;
+      		}
+      	}
+		print_r($_POST);
 	$fonoApi=fonoApi::debug($token);
 		foreach ($phoneList as $key => $value) {
 			if ($_POST['value']===$value['rule']) {
@@ -35,7 +41,6 @@
 		}
 
 	}	
-	print_r($imgpath);
 
 	//echo "<pre>";
 	//print_r($result);
@@ -45,7 +50,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>AyeAye - AHP</title>
+<title>SmartDec - AHP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -89,7 +94,7 @@ experience.
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="../home">AyeAye</a>
+		<a class="navbar-brand" href="../home">SmartDec</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -126,6 +131,38 @@ experience.
 	<?php if ($noresult!=1) {
 		
 	 ?>
+	 <div class="row">
+	 	<div class="col-lg-12">
+			<form action="find.php" method="post">
+				<?php foreach ($choice as $key => $value) {
+	
+ ?>
+	<div class="col-lg-3">
+		<label><?php echo "$key :"; ?></label>
+		<select name=<?php echo "'value"."[$key]'"; ?> class="form-control">
+		<?php foreach ($value as $key1 => $value1) {
+			# code...
+		 ?>
+			<option value=<?php echo "'$value1'"; 
+			if ($_POST['value'][$key]===$value1) {
+				echo "selected";
+			}
+			?>><?php echo "$value1"; ?></option>
+			<?php  }?>
+		</select>
+	</div>
+
+
+<?php 
+	
+	}
+ ?>
+				<div class="form-group pull-right">
+					<button type="submit" class="btn btn-success">Cari</button>
+				</div>
+			</form>
+		</div>
+	 </div>
 	<div class="row">
 		<div class="col-lg-12">
 		<?php 
@@ -142,8 +179,8 @@ experience.
 					<div class="panel panel-primary" style="border-radius: 25px"> 
 						<div class="panel-heading" style="border-radius: 25px">
 							<div style="background-color: white;border-radius: 25px">
-								<div style="width: 150px;height: 150px;display: block;margin: 0 auto;">
-									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$value->DeviceName'"; ?> class="img-responsive img-rounded" style="">
+								<div style="width: 150px;display: block;margin: 0 auto;">
+									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$value->DeviceName'"; ?> class="img-responsive img-rounded" style="height: 200px;">
 								</div>
 							</div>
 							<hr style="margin-bottom: 5px;margin-top: 10px">
@@ -209,7 +246,7 @@ experience.
 	<div class="text-center color-white col-sm-12 col-lg-12">
 		
 		<p>
-			 © Your Website.com. Template by WowThemes.net
+			 © Galvani Natasya. Template by WowThemes.net
 		</p>
 		<p>
 			<a href="http://www.wowthemes.net/premium-themes-templates/">Official Website</a> | <a href="http://www.wowthemes.net/support/">Theme Support</a> | <a href="http://www.wowthemes.net/frequently-asked-questions/">F.A.Q.</a>

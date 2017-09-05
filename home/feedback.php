@@ -12,7 +12,7 @@ if (!empty($_POST['message'])&& isset($_POST['message'])) {
 //date_default_timezone_set('Asia/Jakarta'); // CDT
 
 //$current_date = date('d M Y, h:ia O');
-	//$put[]=array('type'=>'admin','name'=>'Josi Aranda','timestamp'=>$current_date,'message'=>'hello,world');
+	//$put[]=array('type'=>'admin','name'=>'Galvani','timestamp'=>$current_date,'message'=>'hello,world');
 	$feedbacks=json_decode(file_get_contents('feedback.json'),true);
 	$feedbacks=array_reverse($feedbacks,true);
 	
@@ -24,7 +24,7 @@ if (!empty($_POST['message'])&& isset($_POST['message'])) {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>AyeAye - Feedbacks</title>
+<title>SmartDec - Feedbacks</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -68,7 +68,7 @@ experience.
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="../home">AyeAye</a>
+		<a class="navbar-brand" href="../home">SmartDec</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -163,7 +163,7 @@ experience.
 	<div class="text-center color-white col-sm-12 col-lg-12">
 		
 		<p>
-			 © Your Website.com. Template by WowThemes.net
+			 © Galvani Natasya. Template by WowThemes.net
 		</p>
 		<p>
 			<a href="http://www.wowthemes.net/premium-themes-templates/">Official Website</a> | <a href="http://www.wowthemes.net/support/">Theme Support</a> | <a href="http://www.wowthemes.net/frequently-asked-questions/">F.A.Q.</a>

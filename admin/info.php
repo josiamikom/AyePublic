@@ -105,40 +105,44 @@ require_once 'header.php'; ?>
        </div>
        
        
-       
-        <div class="col-lg-12">
-        <div class="table-responsive">
-        	<table class="table table-bordered table-hovered table-condensed">
-        	<tr>
-        		<th>Action</th>
-        		<th>Brand</th>
-        		<th>Device Name</th>
-        		<?php 
-        			foreach ($kriteria as $key => $value) {
-        				echo "<th>$value</th>";
-        			}
-        		 ?>
-        	</tr>
-        	<?php 
-        		foreach ($phoneList as $key => $value) {
-        			?>
-        			<tr>
-        				<td><a href=<?php echo "'editphone.php?brand=$value[Brand]&name=$value[Name]'"; ?>><i class="fa fa-edit"></i>Edit</a></td>
-        				<td><?php echo "$value[Brand]"; ?></td>
-        				<td><?php echo "$value[Name]"; ?></td>
-        				<?php 
-        					foreach ($value['rule'] as $key1 => $value1) {
-        						# code...
-        					
-        				 ?>
-        				 <td><?php echo "$value1"; ?></td>
-        				 <?php } ?>
-        			</tr>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+          <table class="table table-bordered table-hovered table-condensed">
+          <tr>
+            <th>Action</th>
+            <th>Brand</th>
+            <th>Device Name</th>
+            <?php 
+              foreach ($kriteria as $key => $value) {
+                echo "<th>$value</th>";
+              }
+             ?>
+          </tr>
+          <?php 
+        sort ($phoneList);
+            foreach ($phoneList as $key => $value) {
+              ?>
+              <tr>
+                <td><a href=<?php echo "'editphone.php?brand=$value[Brand]&name=$value[Name]'"; ?>><i class="fa fa-edit"></i>Edit</a></td>
+                <td><?php echo "$value[Brand]"; ?></td>
+                <td><?php echo "$value[Name]"; ?></td>
+                <?php 
+                  foreach ($value['rule'] as $key1 => $value1) {
+                    # code...
+                  
+                 ?>
+                 <td><?php echo "$value1"; ?></td>
+                 <?php } ?>
+              </tr>
 
-        			<?php
-        		}
-        	 ?>
+              <?php
+            }
+           ?>
         </table>
+          </div>
+        </div>
+        
         
     </div>
     <!-- /. PAGE INNER  -->
@@ -150,7 +154,7 @@ require_once 'header.php'; ?>
 
   <div class="row">
     <div class="col-lg-12" >
-      &copy;  2014 yourdomain.com | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
+      &copy;  2017 Galvani Natasya | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
     </div>
   </div>
 </div>

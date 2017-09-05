@@ -71,7 +71,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>AyeAye - AHP</title>
+<title>SmartDec - AHP</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -115,7 +115,7 @@ experience.
 		<span class="icon-bar"></span>
 		<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="../home">AyeAye</a>
+		<a class="navbar-brand" href="../home">SmartDec</a>
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -160,8 +160,8 @@ experience.
 					<div class="panel panel-primary" style="border-radius: 25px">
 						<div class="panel-heading" style="border-radius: 25px">
 							<div style="background-color: white;border-radius: 25px">
-								<div style="width: 150px;height: 150px;display: block;margin: 0 auto;">
-									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$key1'"; ?> class="img-responsive img-rounded" style="">
+								<div style="width: 150px;display: block;margin: 0 auto;">
+									<img src=<?php echo "'../lib/phone/img/$imgpath[$imgindex]'"; ?> alt=<?php echo "'$key1'"; ?> class="img img-responsive img-rounded" style="height: 200px;">
 								</div>
 							</div>
 							<hr style="margin-bottom: 5px;margin-top: 10px">
@@ -541,7 +541,7 @@ experience.
 	<div class="text-center color-white col-sm-12 col-lg-12">
 		
 		<p>
-			 © Your Website.com. Template by WowThemes.net
+			 © Galvani Natasya. Template by WowThemes.net
 		</p>
 		<p>
 			<a href="http://www.wowthemes.net/premium-themes-templates/">Official Website</a> | <a href="http://www.wowthemes.net/support/">Theme Support</a> | <a href="http://www.wowthemes.net/frequently-asked-questions/">F.A.Q.</a>
