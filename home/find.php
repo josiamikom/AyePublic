@@ -12,7 +12,6 @@
       			$choice[$key][]=$value1;
       		}
       	}
-		print_r($_POST);
 	$fonoApi=fonoApi::debug($token);
 		foreach ($phoneList as $key => $value) {
 			if ($_POST['value']===$value['rule']) {
@@ -133,32 +132,71 @@ experience.
 	 ?>
 	 <div class="row">
 	 	<div class="col-lg-12">
-			<form action="find.php" method="post">
-				<?php foreach ($choice as $key => $value) {
-	
- ?>
-	<div class="col-lg-3">
-		<label><?php echo "$key :"; ?></label>
-		<select name=<?php echo "'value"."[$key]'"; ?> class="form-control">
-		<?php foreach ($value as $key1 => $value1) {
-			# code...
-		 ?>
-			<option value=<?php echo "'$value1'"; 
-			if ($_POST['value'][$key]===$value1) {
-				echo "selected";
-			}
-			?>><?php echo "$value1"; ?></option>
-			<?php  }?>
-		</select>
-	</div>
-
-
-<?php 
-	
-	}
- ?>
-				<div class="form-group pull-right">
-					<button type="submit" class="btn btn-success">Cari</button>
+			<form action="process.php" method="post">
+				<div class="form-group">
+					<select class="col-lg-4" name="phones[]" required="">
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+					<select class="col-lg-4" name="phones[]" required="">
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+					<select class="col-lg-4" name="phones[]" >
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+					<select class="col-lg-4" name="phones[]" >
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+					<select class="col-lg-4" name="phones[]" >
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+					<select class="col-lg-4" name="phones[]" >
+						<option value="">Select Smartphone</option>
+						<?php 
+						foreach ($phoneList as $key => $value) {
+							?>
+							<option value=<?php echo "'$value[Brand]$value[Name]'"; ?>><?php echo "$value[Name]"; ?></option>
+							<?php
+						}
+						 ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success pull-right">Submit</button>
 				</div>
 			</form>
 		</div>

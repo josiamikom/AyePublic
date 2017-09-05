@@ -109,11 +109,7 @@ experience.
         		<th>Full Spec</th>
         		<th>Brand</th>
         		<th>Device Name</th>
-        		<?php 
-        			foreach ($rules as $key => $value) {
-        				echo "<th>$value</th>";
-        			}
-        		 ?>
+        		
         	</tr>
         	<?php 
 				sort ($phoneList);
@@ -123,13 +119,7 @@ experience.
         				<td><a href=<?php echo "'spec.php?brand=$value[Brand]&name=$value[Name]'"; ?>><i class="fa fa-edit"></i></a></td>
         				<td><?php echo "$value[Brand]"; ?></td>
         				<td><?php echo "$value[Name]"; ?></td>
-        				<?php 
-        					foreach ($value['rule'] as $key1 => $value1) {
-        						# code...
-        					
-        				 ?>
-        				 <td><?php echo "$value1"; ?></td>
-        				 <?php } ?>
+        				
         			</tr>
 
         			<?php

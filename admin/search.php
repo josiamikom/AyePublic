@@ -65,7 +65,7 @@ require_once 'header.php';
         <br>
         <div>
           <?php 
-            if ($found==0) {
+            if (isset($found)&& $found==0) {
                 ?>
                 <div class="alert alert-danger">
                   Smartphone not found.
